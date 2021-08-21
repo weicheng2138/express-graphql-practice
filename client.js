@@ -1,22 +1,26 @@
 const fetch = require("node-fetch");
 
-fetch("http://localhost:5000/graphql", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-        query: `
-            query {
-                authors {
-                    name
-                }
-            }
-        `,
-        variables: {
-            now: new Date().toISOString(),
+async function fetchGraphQL() {
+    const response = await fetch("http://localhost:5000/graphql", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
         },
-    }),
-})
-    .then((res) => res.json())
-    .then((result) => console.log(JSON.stringify(result)));
+        body: JSON.stringify({
+            query: `
+                query {
+                    authors {
+                        name
+                    }
+                }
+            `,
+            variables: {
+                now: new Date().toISOString(),
+            },
+        }),
+    });
+    const result = await response.json();
+    console.log(result.data.authors);
+}
+
+fetchGraphQL();
