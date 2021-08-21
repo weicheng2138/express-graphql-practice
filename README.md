@@ -17,7 +17,7 @@ $ npm run dev
 ## Call Server api by using fetch
 
 ```bash
-    fetch("http://localhost:5000/graphql", {
+    const response = await fetch("http://localhost:5000/graphql", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -34,7 +34,7 @@ $ npm run dev
                 now: new Date().toISOString(),
             },
         }),
-    })
-        .then((res) => res.json())
-        .then((result) => console.log(JSON.stringify(result)));
+    });
+    const result = await response.json();
+    console.log(result.data.authors);
 ```
