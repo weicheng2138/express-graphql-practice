@@ -13,3 +13,28 @@ $ npm install
 # serve with hot reload at localhost:3000
 $ npm run dev
 ```
+
+## Call Server api by using fetch
+
+```bash
+    fetch("http://localhost:5000/graphql", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            query: `
+                query {
+                    authors {
+                        name
+                    }
+                }
+            `,
+            variables: {
+                now: new Date().toISOString(),
+            },
+        }),
+    })
+        .then((res) => res.json())
+        .then((result) => console.log(JSON.stringify(result)));
+```
